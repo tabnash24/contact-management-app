@@ -53,12 +53,23 @@ CREATE TABLE contacts (
     address VARCHAR(200)
 );
 
+---
 
 ## Run the Application
 
 python contact.py
 
-# Author
+![Database of the app](assets/screenshots/db.png)
+
+![Checking duplicate record](assets/screenshots/duplicate.png)
+
+![Email validation](assets/screenshots/check_email.png)
+
+![Searching by name](assets/screenshots/search.png)
+
+---
+
+## Author
 
 Tabna Shahid
 
