@@ -1,0 +1,7 @@
+# Requirements for Contact Management System
+
+# MySQL connector for Python
+pymysql
+
+## Tkinter is included with standard Python installations
+# If not available, install the python-tk package for your OS
