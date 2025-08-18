@@ -52,12 +52,14 @@ CREATE TABLE contacts (
     email VARCHAR(100) UNIQUE,
     address VARCHAR(200)
 );
-```
+
 ---
 
 ## Run the Application
 
 python contact.py
+
+```
 
 ![Database of the app](assets/screenshots/db.png)
 
