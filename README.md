@@ -52,7 +52,7 @@ CREATE TABLE contacts (
     email VARCHAR(100) UNIQUE,
     address VARCHAR(200)
 );
-
+```
 ---
 
 ## Run the Application
