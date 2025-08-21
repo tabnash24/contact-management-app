@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import pymysql
 from tkinter import messagebox
+import re
 
 class Contact:
     def __init__(self,root):
@@ -26,10 +27,10 @@ class Contact:
 #          Manage Frame
 
         Manage_Frame=Frame(self.root,bd="4",relief=RIDGE,bg="light grey")
-        Manage_Frame.place(x=20,y=100,width=450,height=560)
+        Manage_Frame.place(x=30,y=100,width=450,height=650)
 
         m_title=Label(Manage_Frame,text="Manage Contacts",bg="light grey",font=("times new roman",20,"bold"))
-        m_title.grid(row=0,columnspan=2,pady=10)
+        m_title.grid(row=0,columnspan=2,pady=20)
 
 #name
 
@@ -58,7 +59,7 @@ class Contact:
         lbl_email=Label(Manage_Frame,text="Email",bg="light grey",font=("times new roman",12,"bold"))
         lbl_email.grid(row=4,column=0,pady=10,padx=20,sticky="w")
 
-        txt_email=Entry(Manage_Frame,textvariable=self.email_var,font=("times new roman",12,"bold"),bd=5,relief=GROOVE)
+        txt_email=Entry(Manage_Frame,textvariable=self.email_var,font=("times new roman",12,"bold"),bd=5,relief=GROOVE,width=25)
         txt_email.grid(row=4,column=1,pady=10,sticky="w")
 
 #address
@@ -66,14 +67,14 @@ class Contact:
         lbl_address=Label(Manage_Frame,text="Address",bg="light grey",font=("times new roman",12,"bold"))
         lbl_address.grid(row=5,column=0,pady=12,padx=20,sticky="w")
 
-        self.txt_address=Text(Manage_Frame,width=30,height=4)
+        self.txt_address=Text(Manage_Frame,width=30,height=5)
         self.txt_address.grid(row=5,column=1,pady=10,sticky="w")
 
 
 #button frame
          
         btn_Frame=Frame(Manage_Frame,bd="1",relief=RIDGE,bg="light grey")
-        btn_Frame.place(x=15,y=380,width=410)
+        btn_Frame.place(x=15,y=400,width=410)
 
         Addbtn=Button(btn_Frame,text="Add",width=10,command=self.add_contact).grid(row=0,column=0,padx=10,pady=10)
         Updatebtn=Button(btn_Frame,text="Update",width=10,command=self.update_data).grid(row=0,column=1,padx=10,pady=10)
@@ -83,30 +84,30 @@ class Contact:
 #       Detail frame        
         
         Detail_Frame=Frame(self.root,bd="4",relief=RIDGE,bg="light grey")
-        Detail_Frame.place(x=480,y=100,width=830,height=560)
+        Detail_Frame.place(x=490,y=100,width=1010,height=650)
 
         
         lbl_search=Label(Detail_Frame,text="Search by",bg="light grey",font=("times new roman",12,"bold"))
-        lbl_search.grid(row=0,column=0,pady=10,padx=20,sticky="w")
+        lbl_search.grid(row=0,column=1,pady=10,padx=20,sticky="w")
 
 
         combo_search=ttk.Combobox(Detail_Frame,textvariable=self.search_by,width=10,font=("times new roman",11),state='readonly')
         combo_search['values']=("First Name","Last Name","Phone No.")
-        combo_search.grid(row=0,column=1,padx=20,pady=20)
+        combo_search.grid(row=0,column=2,padx=20,pady=20)
 
         txt_search=Entry(Detail_Frame,textvariable=self.search_txt,width=30,font=("times new roman",11,"bold"),bd=5,relief=GROOVE)
-        txt_search.grid(row=0,column=2,pady=20,padx=20,sticky="w")
+        txt_search.grid(row=0,column=3,pady=20,padx=20,sticky="w")
 
         # Bind Enter key to search
         txt_search.bind("<Return>", lambda event: self.search_data())
 
-        searchbtn=Button(Detail_Frame,text="Search",width=10,command=self.search_data).grid(row=0,column=3,padx=10,pady=20)
-        showallbtn=Button(Detail_Frame,text="Show All",width=10,command=self.fetch_data).grid(row=0,column=4,padx=10,pady=20) 
+        searchbtn=Button(Detail_Frame,text="Search",width=10,command=self.search_data).grid(row=0,column=4,padx=10,pady=20)
+        showallbtn=Button(Detail_Frame,text="Show All",width=10,command=self.fetch_data).grid(row=0,column=5,padx=10,pady=20) 
         
 #         Table Frame
 
         Table_Frame=Frame(Detail_Frame,bd="4",relief=RIDGE,bg="light grey")
-        Table_Frame.place(x=10,y=70,width=800,height=460)
+        Table_Frame.place(x=10,y=70,width=980,height=560)
 
 #scroll bar
 
@@ -150,7 +151,10 @@ class Contact:
     
 
     def email_validation(self):
-        if ("@" not in self.email_var.get()) or ("." not in self.email_var.get()):
+        email = self.email_var.get()
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
+        if not re.match(pattern,email) :
                 messagebox.showerror("Invalid Input", "Please enter a valid email address.")
                 return False
         return True
@@ -227,6 +231,7 @@ class Contact:
         self.email_var.set(row[4])
         self.txt_address.delete('1.0',END)
         self.txt_address.insert(END,row[5])
+        self.clear_search()
        
 
     def update_data(self):
