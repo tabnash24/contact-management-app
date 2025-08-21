@@ -13,7 +13,7 @@ This application allows users to **add, display, update, delete, and search cont
 - **Search** by First Name, Last Name, or Phone Number.
 - **Validation**:
   - Phone number must be exactly 10 digits.
-  - Email must contain `@` and `.`.
+  - Email must contain `@`,`.` and at least two characters in TLD. It also supports multiple domain names.
   - Duplicate phone or email entries are not allowed.
 
 ---
@@ -74,4 +74,3 @@ python contact.py
 ## Author
 
 Tabna Shahid
-
